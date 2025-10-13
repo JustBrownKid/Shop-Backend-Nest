@@ -1,0 +1,49 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Tag {
+  id: ID!
+  name: String!
+  created_at: DateTime
+  updated_at: DateTime
+  blogs: [Blog!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Blog {
+  id: Int!
+  title: String!
+  image: String
+  content: String!
+  tag_id: Int!
+  created_at: DateTime
+  updated_at: DateTime
+  tag: Tag
+}
+
+type Query {
+  blogs: [Blog!]!
+  blog(id: Int!): Blog!
+  tags: [Tag!]!
+  tag(id: Int!): Tag!
+}
+
+type Mutation {
+  createTag(createTagInput: CreateTagInput!): Tag!
+  updateTag(updateTagInput: UpdateTagInput!): Tag!
+  removeTag(id: Int!): Tag!
+}
+
+input CreateTagInput {
+  name: String!
+}
+
+input UpdateTagInput {
+  name: String
+  id: Int!
+}
