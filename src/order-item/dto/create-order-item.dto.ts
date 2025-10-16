@@ -1,13 +1,13 @@
-import { IsString, IsNotEmpty ,IsOptional} from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOrderItemDto {
   @ApiProperty({ description: 'ID of the order' })
-  @IsOptional()
+  @IsOptional() 
   @Type(() => BigInt)
-  order_id?: bigint;
-  
+  order_id: bigint;
+
   @ApiProperty({ description: 'ID of the product' })
   @IsNotEmpty()
   @Type(() => Number)
