@@ -1,8 +1,8 @@
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
-import { CreateTagInput } from './create-tag.input';
+import { CreateTagDto } from './create-tag.dto';
 
 @InputType()
-export class UpdateTagInput extends PartialType(CreateTagInput) {
+export class UpdateTagDto extends PartialType(CreateTagDto) {
   @Field(() => Int) 
   id: number;
 }

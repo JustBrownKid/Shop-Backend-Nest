@@ -5,24 +5,24 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class HiringService {
-  constructor(  private readonly priam : PrismaService ){}
+  constructor(  private readonly prima : PrismaService ){}
   create(createHiringDto: CreateHiringDto) {
-    return this.priam.hirings.create({data : createHiringDto});
+    return this.prima.hirings.create({data : createHiringDto});
   }
 
   findAll() {
-    return this.priam.hirings.findMany();
+    return this.prima.hirings.findMany();
   }
 
   findOne(id: number) {
-    return this.priam.hirings.findFirst({where : {id: id}});
+    return this.prima.hirings.findFirst({where : {id: id}});
   }
 
   update(id: number, updateHiringDto: UpdateHiringDto) {
-    return this.priam.hirings.update({ where: { id: id }, data : updateHiringDto});
+    return this.prima.hirings.update({ where: { id: id }, data : updateHiringDto});
   }
 
   remove(id: number) {
-    return this.priam.hirings.delete({where:{id: id}});
+    return this.prima.hirings.delete({where:{id: id}});
   }
 }

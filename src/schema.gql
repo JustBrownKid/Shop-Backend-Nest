@@ -34,16 +34,16 @@ type Query {
 }
 
 type Mutation {
-  createTag(createTagInput: CreateTagInput!): Tag!
-  updateTag(updateTagInput: UpdateTagInput!): Tag!
+  createTag(createTagInput: CreateTagDto!): Tag!
+  updateTag(updateTagInput: UpdateTagDto!): Tag!
   removeTag(id: Int!): Tag!
 }
 
-input CreateTagInput {
+input CreateTagDto {
   name: String!
 }
 
-input UpdateTagInput {
+input UpdateTagDto {
   name: String
   id: Int!
 }

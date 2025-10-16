@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { TagService } from './tag.service';
-import { CreateTagInput } from './dto/create-tag.input';
-import { UpdateTagInput } from './dto/update-tag.input';
+import { CreateTagDto } from './dto/create-tag.dto';
+import { UpdateTagDto } from './dto/update-tag.dto';
 import { Tag } from './entities/tag.entity'; 
 
 @Resolver(() => Tag)
@@ -9,7 +9,7 @@ export class TagResolver {
   constructor(private readonly tagService: TagService) {}
 
   @Mutation(() => Tag)
-  createTag(@Args('createTagInput') createTagInput: CreateTagInput) {
+  createTag(@Args('createTagInput') createTagInput: CreateTagDto) {
     return this.tagService.create(createTagInput);
   }
 
@@ -24,7 +24,7 @@ export class TagResolver {
   }
 
   @Mutation(() => Tag)
-  updateTag(@Args('updateTagInput') updateTagInput: UpdateTagInput) {
+  updateTag(@Args('updateTagInput') updateTagInput: UpdateTagDto) {
     return this.tagService.update(updateTagInput.id, updateTagInput);
   }
 

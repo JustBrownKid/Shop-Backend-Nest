@@ -1,18 +1,23 @@
 import { IsString, IsOptional, IsNotEmpty, IsNumber } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateBlogDto {
-    @IsString()
-    @IsNotEmpty()
-    title: string;
+  @ApiProperty({ description: 'Blog title', example: 'My first blog' })
+  @IsString()
+  @IsNotEmpty()
+  title: string;
 
-    @IsString()
-    @IsOptional()
-    image?: string;
+  @ApiPropertyOptional({ description: 'Blog image URL', example: 'https://example.com/image.jpg' })
+  @IsString()
+  @IsOptional()
+  image?: string;
 
-    @IsString()
-    @IsNotEmpty()
-    content: string;
+  @ApiProperty({ description: 'Blog content', example: 'This is the blog content...' })
+  @IsString()
+  @IsNotEmpty()
+  content: string;
 
-    @IsNumber()
-    tag_id: number;
+  @ApiProperty({ description: 'Blog tag ID', example: 1 })
+  @IsNumber()
+  tag_id: number;
 }
