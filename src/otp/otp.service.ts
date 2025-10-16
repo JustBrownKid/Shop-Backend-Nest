@@ -60,7 +60,8 @@ export class OtpService {
     const payload = { 
         name: user.name, 
         email: user.email,
-        sub: user.id
+        sub: user.id,
+        role : user.role,
     };
     const token = this.jwt.sign(payload);
     return { success: true, message: 'OTP verified successfully.' , token : token};

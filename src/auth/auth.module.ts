@@ -7,10 +7,14 @@ import { EmailModule } from 'src/email/email.module';
 import { OtpModule } from 'src/otp/otp.module';
 
 
+
+
 @Module({
   imports: [PrismaModule ,forwardRef(() => OtpModule), EmailModule ,],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+  ],
   exports: [AuthService]
 })
 export class AuthModule {}

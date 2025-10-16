@@ -14,14 +14,15 @@ model otps {
   createdAt DateTime @default(now())
 }
 
+//?done
 model blogs {
   id         BigInt    @id @default(autoincrement())
   title      String    @db.VarChar(255)
   image      String?   @db.VarChar(255)
   content    String
   tag_id     BigInt
-  created_at DateTime? @db.Timestamp(0)
-  updated_at DateTime? @db.Timestamp(0)
+  created_at DateTime  @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @updatedAt @db.Timestamp(0)
   tags       tags      @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "blogs_tag_id_foreign")
 }
 
@@ -37,11 +38,12 @@ model cache_locks {
   expiration Int
 }
 
+//?done
 model categories {
   id         BigInt     @id @default(autoincrement())
   name       String     @db.VarChar(255)
-  created_at DateTime?  @db.Timestamp(0)
-  updated_at DateTime?  @db.Timestamp(0)
+  created_at DateTime   @default(now()) @db.Timestamp(0)
+  updated_at DateTime?  @updatedAt @db.Timestamp(0)
   products   products[]
 }
 
@@ -55,12 +57,13 @@ model failed_jobs {
   failed_at  DateTime @default(now()) @db.Timestamp(0)
 }
 
+//?done
 model hirings {
   id         BigInt    @id @default(autoincrement())
   title      String    @db.VarChar(255)
   sections   Json      @db.Json
-  created_at DateTime? @db.Timestamp(0)
-  updated_at DateTime? @db.Timestamp(0)
+  created_at DateTime  @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @updatedAt @db.Timestamp(0)
 }
 
 model job_batches {
@@ -88,6 +91,7 @@ model jobs {
   @@index([queue], map: "jobs_queue_index")
 }
 
+//?done
 model locations {
   id         BigInt    @id @default(autoincrement())
   title      String    @db.VarChar(255)
@@ -95,8 +99,8 @@ model locations {
   phone      String    @db.VarChar(30)
   latitude   Decimal?  @db.Decimal(10, 7)
   longitude  Decimal?  @db.Decimal(10, 7)
-  created_at DateTime? @db.Timestamp(0)
-  updated_at DateTime? @db.Timestamp(0)
+  created_at DateTime  @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @updatedAt @db.Timestamp(0)
 }
 
 model migrations {
@@ -113,14 +117,15 @@ model order_items {
   color_value String?   @db.VarChar(255)
   quantity    Int       @default(1)
   price       Decimal   @default(0) @db.Decimal(10, 2)
-  created_at  DateTime? @db.Timestamp(0)
-  updated_at  DateTime? @db.Timestamp(0)
+  created_at  DateTime  @default(now()) @db.Timestamp(0)
+  updated_at  DateTime? @updatedAt @db.Timestamp(0)
   orders      orders    @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "order_items_order_id_foreign")
   products    products  @relation(fields: [product_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "order_items_product_id_foreign")
 
   @@unique([order_id, product_id, color_name], map: "order_items_order_id_product_id_color_name_unique")
 }
 
+//? Done
 model orders {
   id          BigInt        @id @default(autoincrement())
   cusName     String        @db.VarChar(255)
@@ -131,8 +136,8 @@ model orders {
   note        String?       @db.VarChar(255)
   total_price Decimal       @default(0) @db.Decimal(10, 2)
   status      String        @default("pending") @db.VarChar(255)
-  created_at  DateTime?     @db.Timestamp(0)
-  updated_at  DateTime?     @db.Timestamp(0)
+  created_at  DateTime      @default(now()) @db.Timestamp(0)
+  updated_at  DateTime?     @updatedAt @db.Timestamp(0)
   order_items order_items[]
 }
 
@@ -151,13 +156,14 @@ model personal_access_tokens {
   abilities      String?
   last_used_at   DateTime? @db.Timestamp(0)
   expires_at     DateTime? @db.Timestamp(0)
-  created_at     DateTime? @db.Timestamp(0)
-  updated_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime  @default(now()) @db.Timestamp(0)
+  updated_at     DateTime? @updatedAt @db.Timestamp(0)
 
   @@index([expires_at], map: "personal_access_tokens_expires_at_index")
   @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
 }
 
+//?done
 model products {
   id            BigInt        @id @default(autoincrement())
   image         String        @db.VarChar(255)
@@ -172,8 +178,8 @@ model products {
   description   Json?         @db.Json
   warranty      Json?         @db.Json
   specification Json?         @db.Json
-  created_at    DateTime?     @db.Timestamp(0)
-  updated_at    DateTime?     @db.Timestamp(0)
+  created_at    DateTime      @default(now()) @db.Timestamp(0)
+  updated_at    DateTime?     @updatedAt @db.Timestamp(0)
   order_items   order_items[]
   categories    categories    @relation(fields: [category_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "products_category_id_foreign")
 }
@@ -190,20 +196,23 @@ model sessions {
   @@index([user_id], map: "sessions_user_id_index")
 }
 
+//?done
 model tags {
   id         BigInt    @id @default(autoincrement())
   name       String    @unique(map: "tags_name_unique") @db.VarChar(255)
-  created_at DateTime? @db.Timestamp(0)
-  updated_at DateTime? @db.Timestamp(0)
+  created_at DateTime  @default(now()) @db.Timestamp(0)
+  updated_at DateTime? @updatedAt @db.Timestamp(0)
   blogs      blogs[]
 }
 
+//?done
 model users {
   id             BigInt    @id @default(autoincrement())
   name           String    @db.VarChar(255)
   email          String    @unique(map: "users_email_unique") @db.VarChar(255)
   password       String    @db.VarChar(255)
   remember_token String?   @db.VarChar(100)
-  created_at     DateTime? @db.Timestamp(0)
-  updated_at     DateTime? @db.Timestamp(0)
+  created_at     DateTime  @default(now()) @db.Timestamp(0)
+  updated_at     DateTime? @updatedAt @db.Timestamp(0)
+  role           String    @default("user") @db.VarChar(50)
 }

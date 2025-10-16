@@ -20,14 +20,14 @@ export class AuthService {
   ) { }
 
   async create(createAuthDto: CreateAuthDto) {
-    const { name, email, password } = createAuthDto;
+    const { name, email, password  , role} = createAuthDto;
     const hashedPassword = await bcrypt.hash(password, 10)
     await this.email.sendMail(
     email, 
     'Welcome to Our App!',
     registerMail(name) 
   );
-    return this.prisma.users.create({ data: { name, email, password: hashedPassword  } });
+    return this.prisma.users.create({ data: { name, email, password: hashedPassword  ,role} });
   }
   
  async login(loginData: LoginDto) {
